@@ -31,9 +31,9 @@ def generate_game_paths(board, player):
 def write_paths_to_csv(paths, filename):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Game Path'])
+        writer.writerow(['Pos0', 'Pos1', 'Pos2', 'Pos3', 'Pos4', 'Pos5', 'Pos6', 'Pos7', 'Pos8'])
         for path in paths:
-            writer.writerow([path])
+            writer.writerow(list(path))
 
 if __name__ == "__main__":
     # Start with an empty board and 'X' as the first player
