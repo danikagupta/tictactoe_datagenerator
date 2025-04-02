@@ -54,25 +54,21 @@ def process_board_positions(input_file, output_file):
     with open(input_file, mode='r', newline='') as infile, open(output_file, mode='w', newline='') as outfile:
         reader = csv.reader(infile)
         writer = csv.writer(outfile)
-        writer.writerow(['Board Position', 'Game Status', 'Next Move'])
+        writer.writerow(['Pos0', 'Pos1', 'Pos2', 'Pos3', 'Pos4', 'Pos5', 'Pos6', 'Pos7', 'Pos8', 'Result'])
         next(reader)  # Skip header
         for row in reader:
             board = ''.join(row[:9])
             if check_winner(board, 'X'):
-                game_status = 'X won'
-                next_move = ''
+                result = 'X won'
             elif check_winner(board, 'O'):
-                game_status = 'O won'
-                next_move = ''
+                result = 'O won'
             elif ' ' not in board:
-                game_status = 'Draw'
-                next_move = ''
+                result = 'Draw'
             else:
-                game_status = 'In Progress'
                 next_player = 'X' if board.count('X') == board.count('O') else 'O'
                 best_move, _ = determine_best_move(board, next_player)
-                next_move = f'{next_player}{best_move}'
-            writer.writerow([board, game_status, next_move])
+                result = f'{next_player}{best_move}'
+            writer.writerow(list(board) + [result])
 
 if __name__ == "__main__":
     process_board_positions('valid_tictactoe_game_paths.csv', 'augmented_tictactoe_positions.csv')
